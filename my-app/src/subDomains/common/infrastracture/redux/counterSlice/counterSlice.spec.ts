@@ -1,5 +1,5 @@
+import { CounterState } from '../../../../counter/domain/entities/CounterState';
 import counterReducer, {
-  CounterState,
   increment,
   decrement,
   incrementByAmount,
@@ -9,6 +9,7 @@ describe('counter reducer', () => {
   const initialState: CounterState = {
     value: 3,
     status: 'idle',
+    isLoading: false,
   };
   it('should handle initial state', () => {
     expect(counterReducer(undefined, { type: 'unknown' })).toEqual({

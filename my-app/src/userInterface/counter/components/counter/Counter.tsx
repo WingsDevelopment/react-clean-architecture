@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 
-import { useAppSelector, useAppDispatch } from '../../../app/hooks';
+import { useAppSelector, useAppDispatch } from '../../../../subDomains/common/infrastracture/redux/store/hooks';
+import { CounterService } from '../../../../subDomains/counter/applicationServices/CounterService';
+import { complexUseCaseAsync, incrementIfOdd } from '../../../../subDomains/common/infrastracture/redux/counterSlice/counterActions';
 import {
   decrement,
   increment,
   incrementByAmount,
-  incrementAsync,
-  incrementIfOdd,
   selectCount,
-} from '../infrastracture/redux/counterSlice';
+} from '../../../../subDomains/common/infrastracture/redux/counterSlice/counterSlice';
 import styles from './Counter.module.css';
 
 export function Counter() {
@@ -20,7 +20,7 @@ export function Counter() {
 
   const onClick = async () => {
     try {
-      const originalPromiseResult = await dispatch(incrementAsync(incrementValue)).unwrap()
+      const originalPromiseResult = await dispatch(complexUseCaseAsync(incrementValue)).unwrap()
       // handle result here
     } catch (rejectedValueOrSerializedError) {
       // handle error here
@@ -28,9 +28,20 @@ export function Counter() {
     }
   }
 
+  const onComplexUseCaseAsync = async () => {
+    await dispatch(complexUseCaseAsync(incrementValue))
+  };
+
   return (
     <div>
       <div className={styles.row}>
+        <button
+            className={styles.button}
+            aria-label="CUCA"
+            onClick={onComplexUseCaseAsync}
+          >
+            cuca
+        </button>
         <button
           className={styles.button}
           aria-label="Decrement value"
