@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
-import { Counter } from './userInterface/counter/components/counter/Counter';
 import './App.css';
+import { Counter } from './userInterface/counter/components/counter/Counter';
 
 function App() {
   return (
@@ -10,7 +10,6 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <Counter />
         <p>
-          Edit <code>src/App.tsx</code> and save to reload.
         </p>
         <span>
           <span>Learn </span>
