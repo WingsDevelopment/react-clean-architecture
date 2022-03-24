@@ -2,13 +2,18 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { Counter } from './userInterface/counter/components/counter/Counter';
+import { CustomCounter } from './userInterface/counter/components/customCounter/CustomCounter';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
+        <p>Redux store:</p>
         <Counter />
+        <hr />
+        <p>Custom store:</p>
+        <CustomCounter />
         <p>
         </p>
         <span>
@@ -49,6 +54,7 @@ function App() {
             React Redux
           </a>
         </span>
+        <br />
       </header>
     </div>
   );

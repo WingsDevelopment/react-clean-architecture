@@ -6,6 +6,7 @@ import { complexUseCaseAsync, simpleIncrement } from '../../../../subDomains/com
 import styles from './Counter.module.css';
 import { selectCounterUiState, selectCounterValue } from '../../../../subDomains/common/infrastracture/redux/counterSlice/counterSlice';
 
+//USES CUSTOM REDUX TOOLKIT STORE
 export function Counter() {
   const count = useAppSelector(selectCounterValue);
   const counterUIState = useAppSelector(selectCounterUiState);
@@ -18,7 +19,7 @@ export function Counter() {
     await dispatch(complexUseCaseAsync(incrementValue))
   };
 
-  const onSimpleIncrement = async () => {
+  const onSimpleIncrement = () => {
     dispatch(simpleIncrement())
   };
 

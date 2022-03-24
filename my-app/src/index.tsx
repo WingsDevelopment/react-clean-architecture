@@ -5,6 +5,9 @@ import App from './App';
 import { store } from './subDomains/common/infrastracture/redux/store/store';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
+import { configureCustomStore } from './subDomains/common/infrastracture/custom-store/counterCustomStore';
+
+configureCustomStore();
 
 ReactDOM.render(
   <React.StrictMode>
