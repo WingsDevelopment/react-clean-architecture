@@ -15,19 +15,11 @@ export const useCustomStore = () => {
         };
     }, [setState]);
 
-
     const customDispatch = (actionIdentifier: any, payload: any) => {
         const newState = (actions as any)[actionIdentifier](customGlobalState, payload);
         customGlobalState = { ...customGlobalState, ...newState };
         listeners.forEach(listener => listener(customGlobalState));
     };
-
-    // const subscribe = (listener: any) => {
-    //     listeners.push(listener);
-    //     return () => {
-    //         listeners = listeners.filter(l => l !== listener);
-    //     };
-    // };
 
     return {customGlobalState, customDispatch};
 }
