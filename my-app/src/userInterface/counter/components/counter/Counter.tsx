@@ -29,7 +29,7 @@ export function Counter() {
             className={styles.button}
             aria-label="CUCA"
             onClick={onComplexUseCaseAsync}
-            disabled={counterUIState.isFatching}
+            disabled={counterUIState.isLoading}
           >
             cuca
         </button>
@@ -39,13 +39,13 @@ export function Counter() {
             className={styles.button}
             aria-label="Increment value"
             onClick={onSimpleIncrement}
-            disabled={counterUIState.isFatching}
+            disabled={counterUIState.isLoading}
           >
             +
           </button>
       </div>
       <p>
-        {counterUIState.isFatching ? 'Loading...' : 'Loaded'}
+        {counterUIState.isLoading ? 'Loading...' : 'Loaded'}
       </p>
       <p>
         State: {counterUIState.state}

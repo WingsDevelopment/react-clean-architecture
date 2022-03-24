@@ -14,7 +14,7 @@ const initialState: CounterSliceState = {
         value: 0,
     },
     uiState: {
-        isFatching: false,
+        isLoading: false,
         errorFetchMessage: '',
         state : 'idle',
     }

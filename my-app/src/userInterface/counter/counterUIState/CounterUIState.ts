@@ -1,23 +1,23 @@
 export interface CounterUIState {
-    isFatching: boolean;
+    isLoading: boolean;
     errorFetchMessage: string;
     state: "idle" | "loading" | "failed";
 }
 
 export const getUiStateOnSuccess = (): CounterUIState => ({
-    isFatching: false,
+    isLoading: false,
     errorFetchMessage: "",
     state: "idle",
 });
 
 export const getUiStateOnFetching = (): CounterUIState => ({
-    isFatching: true,
+    isLoading: true,
     errorFetchMessage: "",
     state: "loading",
 });
 
 export const getUiStateOnFailed = (error: string): CounterUIState => ({
-    isFatching: false,
+    isLoading: false,
     errorFetchMessage: error,
     state: "failed",
 });
