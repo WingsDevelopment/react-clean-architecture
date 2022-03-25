@@ -1,34 +1,27 @@
 import { useState } from 'react';
 
-import styles from './CustomCounter.module.css';
-import { useCustomStore } from '../../../../subDomains/common/infrastracture/custom-store/store';
+import { getCustomStateManagmentCallbacks } from '../../../../subDomains/common/infrastracture/custom-store/counterCustomStore';
 import { CounterService } from '../../../../subDomains/counter/applicationServices/CounterService';
-import { xxxCounterModel } from '../../../../subDomains/counter/domain/entities/CounterModel';
+import { useCustomStore } from '../../../../subDomains/common/infrastracture/custom-store/store';
 
+import styles from './CustomCounter.module.css';
 
 //USES CUSTOM STORE
 export function CustomCounter() {
   const {customGlobalState, customDispatch} = useCustomStore(); 
-  
   const [incrementAmount,] = useState(2);
   const incrementValue = Number(incrementAmount) || 0;
 
   const onComplexUseCaseAsync = async () => {
     await CounterService.xxxComplexUseCaseAsync(
-        // get state callback
-        () : xxxCounterModel => { return { ... customGlobalState.counter }}, 
-        // callback za dispatchovanje akcije -> setCounterState
-        (state: xxxCounterModel) => customDispatch('SET_COUNTER_STATE', state), 
+        getCustomStateManagmentCallbacks(customGlobalState, customDispatch),
         //params
         {amountParams: incrementValue});
   };
 
   const onSimpleIncrement = () => {
     CounterService.xxxSimpleIncrement(
-        // get state callback
-        () : xxxCounterModel => { return { ... customGlobalState.counter }}, 
-        // callback za dispatchovanje akcije -> setCounterState
-        (state: xxxCounterModel) => customDispatch('SET_COUNTER_STATE', state));
+      getCustomStateManagmentCallbacks(customGlobalState, customDispatch));
   };
 
   return (

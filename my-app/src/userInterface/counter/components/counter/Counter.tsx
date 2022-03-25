@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
-import { useAppSelector, useAppDispatch } from '../../../../subDomains/common/infrastracture/redux/store/hooks';
+import { selectCounterUiState, selectCounterValue } from '../../../../subDomains/common/infrastracture/redux/counterSlice/counterSlice';
 import { complexUseCaseAsync, simpleIncrement } from '../../../../subDomains/common/infrastracture/redux/counterSlice/counterActions';
+import { useAppSelector, useAppDispatch } from '../../../../subDomains/common/infrastracture/redux/store/hooks';
 
 import styles from './Counter.module.css';
-import { selectCounterUiState, selectCounterValue } from '../../../../subDomains/common/infrastracture/redux/counterSlice/counterSlice';
 
 //USES CUSTOM REDUX TOOLKIT STORE
 export function Counter() {
@@ -16,11 +16,11 @@ export function Counter() {
   const incrementValue = Number(incrementAmount) || 0;
 
   const onComplexUseCaseAsync = async () => {
-    await dispatch(complexUseCaseAsync(incrementValue))
+    await dispatch(complexUseCaseAsync(incrementValue));
   };
 
   const onSimpleIncrement = () => {
-    dispatch(simpleIncrement())
+    dispatch(simpleIncrement());
   };
 
   return (

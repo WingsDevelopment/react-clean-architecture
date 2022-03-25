@@ -1,20 +1,18 @@
 import { xxxCounterModel, xxxIncrement, xxxIncrementByAmount } from "../domain/entities/CounterModel";
 import { IApiRepository } from "../domain/repositoryInterfaces/IApiRepository";
 import { INotificationRepository } from "../domain/repositoryInterfaces/INotificationRepository";
+import { IStateManagement } from "../domain/stateManagement/StateManagementProvider";
 
 //verovatno bolje file po usecaseu jer ce se nagojiti ovako...
 
-const xxxComplexUseCaseAsync = async (
-    getCounterCallback: () => xxxCounterModel, 
-    setCounterCallback: (state: xxxCounterModel) => void, 
-    params : {
+const xxxComplexUseCaseAsync = async (stateManagement: IStateManagement, params : {
         amountParams: number,
     }
 ) => {
     //dependency injection
     const { fetchAmountAsync } = IApiRepository;
     const { notifyError, notifySuccess } = INotificationRepository;
-    let _state = getCounterCallback();
+    let _state = stateManagement.getStateCallback();
     
     //usecase implementation
     try {
@@ -23,7 +21,7 @@ const xxxComplexUseCaseAsync = async (
         xxxIncrement(_state);
         xxxIncrementByAmount(_state, data.amount + params.amountParams);
         //state update
-        setCounterCallback(_state); //+6 je sveukupno (nakon 2 sec)
+        stateManagement.setStateCallback(_state); //+6 je sveukupno (nakon 2 sec)
         notifySuccess("Success");
     }
     catch (err: any) {
@@ -33,15 +31,12 @@ const xxxComplexUseCaseAsync = async (
 }
 
 //simple usecase
-const xxxSimpleIncrement = (
-    getCounterCallback: () => xxxCounterModel, 
-    setCounterCallback: (state: xxxCounterModel) => void
-) => {
-    let _state = getCounterCallback();
+const xxxSimpleIncrement = (stateManagement: IStateManagement)  => {
+    let _state = stateManagement.getStateCallback();
     //mutate state
     xxxIncrement(_state);
     //update state
-    setCounterCallback(_state);
+    stateManagement.setStateCallback(_state);
 }
 
 export const CounterService = {
