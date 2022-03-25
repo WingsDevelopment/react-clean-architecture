@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
-import { CounterSliceState, initialState } from './counterCustomStore';
 
-let customGlobalState: CounterSliceState = initialState;
+let customGlobalState: any = {};
 let listeners : any[] = [];
 let actions = {};
 

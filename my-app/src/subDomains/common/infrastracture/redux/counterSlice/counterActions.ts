@@ -1,24 +1,26 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { AppThunk, RootState } from "../store/store";
-import { CounterService } from "../../../../counter/applicationServices/CounterService";
-import { xxxCounterModel } from "../../../../counter/domain/entities/CounterModel";
+import { domainCounterModel } from "../../../../counter/domain/entities/DomainCounterModel";
 import { selectCounterStateCopy, setCounterState } from "./counterSlice";
-import { IStateManagement } from "../../../../counter/domain/stateManagement/StateManagementProvider";
+import { IDomainStateManagement } from "../../../../counter/domain/stateManagement/DomainStateManagementProvider";
+import { applicationFetchAndIncrementByAmount } from "../../../../counter/application/ApplicationFetchAndIncrementByAmount";
+import { applicationSimpleIncrement } from "../../../../counter/application/ApplicationSimpleIncrement";
 
 
-export const getCustomStateManagmentCallbacks = (dispatch: any, getState: any) : IStateManagement => {
+export const getCustomStateManagmentCallbacks = (dispatch: any, getState: any) : IDomainStateManagement => {
   return {
       getStateCallback: () => selectCounterStateCopy(getState() as RootState),
-      setStateCallback: (state: xxxCounterModel) => dispatch(setCounterState(state))
+      setStateCallback: (state: domainCounterModel) => dispatch(setCounterState(state))
   }
 }
 
-export const complexUseCaseAsync = createAsyncThunk( 'counter/complexUseCaseAsync', 
+export const fetchAndIncrementByAmountThunk = createAsyncThunk( 'counter/applicationFetchAndIncrementByAmount', 
   async (amount: number, { dispatch, getState, rejectWithValue }) => {
       try {
-        await CounterService.xxxComplexUseCaseAsync(
+        await applicationFetchAndIncrementByAmount(
           getCustomStateManagmentCallbacks(dispatch, getState),
-          {amountParams: amount});
+          {amount: amount}
+        );
       }
       catch (err) {
         return rejectWithValue("failed");
@@ -26,9 +28,9 @@ export const complexUseCaseAsync = createAsyncThunk( 'counter/complexUseCaseAsyn
     }
   );
 
-export const simpleIncrement = (): AppThunk => (
+export const simpleIncrementThunk = (): AppThunk => (
     dispatch,
     getState
   ) => {
-    CounterService.xxxSimpleIncrement(getCustomStateManagmentCallbacks(dispatch, getState));
+    applicationSimpleIncrement(getCustomStateManagmentCallbacks(dispatch, getState));
 };

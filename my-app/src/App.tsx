@@ -2,7 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { Counter } from './userInterface/counter/components/counter/Counter';
-import { CustomCounter } from './userInterface/counter/components/customCounter/CustomCounter';
+import { CustomStoreCounter } from './userInterface/counter/components/customCounter/CustomStoreCounter';
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
         <Counter />
         <hr />
         <p>Custom store:</p>
-        <CustomCounter />
+        <CustomStoreCounter />
         <p>
         </p>
         <span>

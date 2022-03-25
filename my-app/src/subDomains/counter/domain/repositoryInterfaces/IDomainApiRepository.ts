@@ -1,5 +1,5 @@
 import { fetchAmountAsync } from "../../infrastracture/counterRepository/CounterRepository";
 
-export const IApiRepository = {
+export const IDomainApiRepository = {
     fetchAmountAsync: fetchAmountAsync,
 }

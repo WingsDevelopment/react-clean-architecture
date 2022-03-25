@@ -1,10 +1,10 @@
 import { CounterUIState } from "../../../../userInterface/counter/counterUIState/CounterUIState";
-import { xxxCounterModel } from "../../../counter/domain/entities/CounterModel";
-import { IStateManagement } from "../../../counter/domain/stateManagement/StateManagementProvider";
+import { domainCounterModel } from "../../../counter/domain/entities/DomainCounterModel";
+import { IDomainStateManagement } from "../../../counter/domain/stateManagement/DomainStateManagementProvider";
 import { initStore } from "./store";
 
 export interface CounterSliceState {
-    counter: xxxCounterModel;
+    counter: domainCounterModel;
     uiState: CounterUIState;
 }
 
@@ -29,9 +29,9 @@ export const configureCustomStore = () => {
     initStore(actions, initialState);
 }
 
-export const getCustomStateManagmentCallbacks = (customGlobalState: CounterSliceState, customDispatch: any) : IStateManagement => {
+export const getCustomStateManagmentCallbacks = (customGlobalState: CounterSliceState, customDispatch: any) : IDomainStateManagement => {
     return {
         getStateCallback : () => { return { ... customGlobalState.counter }},
-        setStateCallback: (state: xxxCounterModel) => customDispatch('SET_COUNTER_STATE', state)
+        setStateCallback: (state: domainCounterModel) => customDispatch('SET_COUNTER_STATE', state)
     }
   }

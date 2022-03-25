@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { selectCounterUiState, selectCounterValue } from '../../../../subDomains/common/infrastracture/redux/counterSlice/counterSlice';
-import { complexUseCaseAsync, simpleIncrement } from '../../../../subDomains/common/infrastracture/redux/counterSlice/counterActions';
+import { fetchAndIncrementByAmountThunk, simpleIncrementThunk } from '../../../../subDomains/common/infrastracture/redux/counterSlice/counterActions';
 import { useAppSelector, useAppDispatch } from '../../../../subDomains/common/infrastracture/redux/store/hooks';
 
 import styles from './Counter.module.css';
@@ -13,14 +13,12 @@ export function Counter() {
   const dispatch = useAppDispatch();
   const [incrementAmount,] = useState(2);
 
-  const incrementValue = Number(incrementAmount) || 0;
-
-  const onComplexUseCaseAsync = async () => {
-    await dispatch(complexUseCaseAsync(incrementValue));
+  const fetchAndIncrementByAmount = async () => {
+    await dispatch(fetchAndIncrementByAmountThunk(incrementAmount));
   };
 
   const onSimpleIncrement = () => {
-    dispatch(simpleIncrement());
+    dispatch(simpleIncrementThunk());
   };
 
   return (
@@ -29,7 +27,7 @@ export function Counter() {
         <button
             className={styles.button}
             aria-label="CUCA"
-            onClick={onComplexUseCaseAsync}
+            onClick={fetchAndIncrementByAmount}
             disabled={counterUIState.isLoading}
           >
             cuca

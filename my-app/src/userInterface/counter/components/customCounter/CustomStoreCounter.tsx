@@ -1,26 +1,25 @@
 import { useState } from 'react';
 
 import { getCustomStateManagmentCallbacks } from '../../../../subDomains/common/infrastracture/custom-store/counterCustomStore';
-import { CounterService } from '../../../../subDomains/counter/applicationServices/CounterService';
 import { useCustomStore } from '../../../../subDomains/common/infrastracture/custom-store/store';
+import { applicationFetchAndIncrementByAmount } from '../../../../subDomains/counter/application/ApplicationFetchAndIncrementByAmount';
+import { applicationSimpleIncrement } from '../../../../subDomains/counter/application/ApplicationSimpleIncrement';
 
-import styles from './CustomCounter.module.css';
+import styles from './CustomStoreCounter.module.css';
 
 //USES CUSTOM STORE
-export function CustomCounter() {
+export function CustomStoreCounter() {
   const {customGlobalState, customDispatch} = useCustomStore(); 
-  const [incrementAmount,] = useState(2);
-  const incrementValue = Number(incrementAmount) || 0;
+  const [amount,] = useState(2);
 
   const onComplexUseCaseAsync = async () => {
-    await CounterService.xxxComplexUseCaseAsync(
+    await applicationFetchAndIncrementByAmount(
         getCustomStateManagmentCallbacks(customGlobalState, customDispatch),
-        //params
-        {amountParams: incrementValue});
+        { amount });
   };
 
   const onSimpleIncrement = () => {
-    CounterService.xxxSimpleIncrement(
+    applicationSimpleIncrement(
       getCustomStateManagmentCallbacks(customGlobalState, customDispatch));
   };
 

@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store/store';
-import { xxxCounterModel } from '../../../../counter/domain/entities/CounterModel';
-import { complexUseCaseAsync } from './counterActions';
+import { domainCounterModel } from '../../../../counter/domain/entities/DomainCounterModel';
+import { fetchAndIncrementByAmountThunk } from './counterActions';
 import { CounterUIState, getUiStateOnFailed, getUiStateOnFetching, getUiStateOnSuccess } from '../../../../../userInterface/counter/counterUIState/CounterUIState';
 
 interface CounterSliceState {
-    counter: xxxCounterModel;
+    counter: domainCounterModel;
     uiState: CounterUIState;
 }
 
@@ -33,13 +33,13 @@ export const counterSlice = createSlice({
   //handle-uje UI state
   extraReducers: (builder) => {
     builder
-      .addCase(complexUseCaseAsync.pending, (state) => {
+      .addCase(fetchAndIncrementByAmountThunk.pending, (state) => {
         state.uiState = getUiStateOnFetching();
       })
-      .addCase(complexUseCaseAsync.fulfilled, (state) => {
+      .addCase(fetchAndIncrementByAmountThunk.fulfilled, (state) => {
         state.uiState = getUiStateOnSuccess();
       })
-      .addCase(complexUseCaseAsync.rejected, (state, action) => {
+      .addCase(fetchAndIncrementByAmountThunk.rejected, (state, action) => {
         state.uiState = getUiStateOnFailed(action.payload as string);
       })
   },
@@ -55,7 +55,7 @@ export const selectCounterUiState = (state: RootState) : CounterUIState => {
   return state.counterState.uiState;
 }
 
-export const selectCounterStateCopy = (state: RootState) : xxxCounterModel => { 
+export const selectCounterStateCopy = (state: RootState) : domainCounterModel => { 
   const counter = { ...state.counterState.counter }; //ovde je odgovornost da se kopira state
   return counter;
 }
