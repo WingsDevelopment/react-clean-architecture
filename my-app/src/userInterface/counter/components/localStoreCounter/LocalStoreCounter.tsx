@@ -33,13 +33,13 @@ export const getLocalStateManagmentCallbacks = (localState: domainCounterModel, 
 //USES CUSTOM STORE
 export function LocalStoreCounter() {
   const [localState, setLocalState] = useState<domainCounterModel>(initialState.counter); 
+  const paramAmount = 2;
   //const [localUiState, setLocalUiState] = useState<CounterUIState>(initialState.uiState); 
-  const [amount,] = useState(2);
 
   const fetchAndIncrementByAmountAsync = async () => {
     await applicationFetchAndIncrementByAmount(
         getLocalStateManagmentCallbacks(localState, setLocalState),
-        { amount });
+        { amount: paramAmount });
   };
 
   const onSimpleIncrement = () => {

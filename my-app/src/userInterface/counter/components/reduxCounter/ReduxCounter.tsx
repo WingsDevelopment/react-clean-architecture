@@ -11,10 +11,10 @@ export function Counter() {
   const count = useAppSelector(selectCounterValue);
   const counterUIState = useAppSelector(selectCounterUiState);
   const dispatch = useAppDispatch();
-  const [incrementAmount,] = useState(2);
+  const paramAmount = 4;
 
   const fetchAndIncrementByAmount = async () => {
-    await dispatch(fetchAndIncrementByAmountThunk(incrementAmount));
+    await dispatch(fetchAndIncrementByAmountThunk(paramAmount));
   };
 
   const onSimpleIncrement = () => {

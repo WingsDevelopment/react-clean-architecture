@@ -10,12 +10,12 @@ import styles from './CustomStoreCounter.module.css';
 //USES CUSTOM STORE
 export function CustomStoreCounter() {
   const {customGlobalState, customDispatch} = useCustomStore(); 
-  const [amount,] = useState(2);
+  const paramAmount = 3;
 
   const fetchAndIncrementByAmountAsync = async () => {
     await applicationFetchAndIncrementByAmount(
         getCustomStateManagmentCallbacks(customGlobalState, customDispatch),
-        { amount });
+        { amount: paramAmount });
   };
 
   const onSimpleIncrement = () => {
