@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import { Counter } from './userInterface/counter/components/reduxCounter/ReduxCounter';
 import { CustomStoreCounter } from './userInterface/counter/components/customStoreCounter/CustomStoreCounter';
+import { LocalStoreCounter } from './userInterface/counter/components/localStoreCounter/LocalStoreCounter';
 
 function App() {
   return (
@@ -14,6 +15,11 @@ function App() {
         <hr />
         <p>Custom store:</p>
         <CustomStoreCounter />
+        
+        <hr />
+        <p>Local store:</p>
+        <LocalStoreCounter />
+        
         <p>
         </p>
         <span>

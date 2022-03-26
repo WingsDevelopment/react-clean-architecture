@@ -19,8 +19,7 @@ export function CustomStoreCounter() {
   };
 
   const onSimpleIncrement = () => {
-    applicationSimpleIncrement(
-      getCustomStateManagmentCallbacks(customGlobalState, customDispatch));
+    applicationSimpleIncrement(getCustomStateManagmentCallbacks(customGlobalState, customDispatch));
   };
 
   return (
