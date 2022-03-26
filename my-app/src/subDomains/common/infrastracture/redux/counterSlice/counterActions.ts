@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { AppThunk, RootState } from "../store/store";
 import { domainCounterModel } from "../../../../counter/domain/entities/DomainCounterModel";
 import { selectCounterStateCopy, setCounterState } from "./counterSlice";
-import { IDomainStateManagement } from "../../../../counter/domain/stateManagement/DomainStateManagementProvider";
+import { IDomainStateManagement } from "../../../../counter/domain/stateManagement/DomainStateManagement";
 import { applicationFetchAndIncrementByAmount } from "../../../../counter/application/ApplicationFetchAndIncrementByAmount";
 import { applicationSimpleIncrement } from "../../../../counter/application/ApplicationSimpleIncrement";
 

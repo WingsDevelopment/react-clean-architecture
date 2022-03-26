@@ -4,7 +4,7 @@ import { selectCounterUiState, selectCounterValue } from '../../../../subDomains
 import { fetchAndIncrementByAmountThunk, simpleIncrementThunk } from '../../../../subDomains/common/infrastracture/redux/counterSlice/counterActions';
 import { useAppSelector, useAppDispatch } from '../../../../subDomains/common/infrastracture/redux/store/hooks';
 
-import styles from './Counter.module.css';
+import styles from './ReduxCounter.module.css';
 
 //USES CUSTOM REDUX TOOLKIT STORE
 export function Counter() {

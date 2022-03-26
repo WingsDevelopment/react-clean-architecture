@@ -1,5 +1,5 @@
 import { domainIncrement } from "../domain/entities/DomainCounterModel";
-import { IDomainStateManagement } from "../domain/stateManagement/DomainStateManagementProvider";
+import { IDomainStateManagement } from "../domain/stateManagement/DomainStateManagement";
 
 //simple usecase
 export const applicationSimpleIncrement = (stateManagement: IDomainStateManagement)  => {

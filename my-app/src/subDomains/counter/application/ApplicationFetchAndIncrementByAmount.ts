@@ -1,7 +1,7 @@
 import { domainIncrementByAmount } from "../domain/entities/DomainCounterModel";
 import { IDomainApiRepository } from "../domain/repositoryInterfaces/IDomainApiRepository";
 import { IDomainNotificationRepository } from "../domain/repositoryInterfaces/IDomainNotificationRepository";
-import { IDomainStateManagement } from "../domain/stateManagement/DomainStateManagementProvider";
+import { IDomainStateManagement } from "../domain/stateManagement/DomainStateManagement";
 
 export const applicationFetchAndIncrementByAmount = async (stateManagement: IDomainStateManagement, params : {
         amount: number,

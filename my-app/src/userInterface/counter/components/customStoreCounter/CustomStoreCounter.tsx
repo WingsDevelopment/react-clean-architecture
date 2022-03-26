@@ -12,7 +12,7 @@ export function CustomStoreCounter() {
   const {customGlobalState, customDispatch} = useCustomStore(); 
   const [amount,] = useState(2);
 
-  const onComplexUseCaseAsync = async () => {
+  const fetchAndIncrementByAmountAsync = async () => {
     await applicationFetchAndIncrementByAmount(
         getCustomStateManagmentCallbacks(customGlobalState, customDispatch),
         { amount });
@@ -29,7 +29,7 @@ export function CustomStoreCounter() {
         <button
             className={styles.button}
             aria-label="CUCA"
-            onClick={onComplexUseCaseAsync}
+            onClick={fetchAndIncrementByAmountAsync}
           >
             cuca
         </button>

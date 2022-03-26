@@ -1,6 +1,6 @@
 import { CounterUIState } from "../../../../userInterface/counter/counterUIState/CounterUIState";
 import { domainCounterModel } from "../../../counter/domain/entities/DomainCounterModel";
-import { IDomainStateManagement } from "../../../counter/domain/stateManagement/DomainStateManagementProvider";
+import { IDomainStateManagement } from "../../../counter/domain/stateManagement/DomainStateManagement";
 import { initStore } from "./store";
 
 export interface CounterSliceState {
