@@ -25,7 +25,7 @@ const initialState: CounterLocalState = {
 
 export const getLocalStateManagmentCallbacks = (localState: domainCounterModel, setLocalState: any) : IDomainStateManagement => {
     return {
-        getStateCallback : () => { return { ... localState }},
+        getStateCallback : () => { return { ...localState }},
         setStateCallback: (state: domainCounterModel) => setLocalState(state),
     }
 }
