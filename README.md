@@ -1,2 +1,2 @@
-# react-redux-testing
+# react-clean-architecture
  
