@@ -1,49 +1,24 @@
 import { useState } from 'react';
+import { initialLocalState } from '../../../../subDomains/common/infrastracture/local-store/localStoreState';
+import { useApplicationFetchAndIncrementByAmount } from '../../../../subDomains/common/infrastracture/local-store/useApplicationFetchAndIncrementByAmount';
+import { useApplicationSimpleIncrement } from '../../../../subDomains/common/infrastracture/local-store/useApplicationSimpleIncrement';
 
-import { applicationFetchAndIncrementByAmount } from '../../../../subDomains/counter/application/ApplicationFetchAndIncrementByAmount';
-import { applicationSimpleIncrement } from '../../../../subDomains/counter/application/ApplicationSimpleIncrement';
 import { domainCounterModel } from '../../../../subDomains/counter/domain/entities/DomainCounterModel';
-import { IDomainStateManagement } from '../../../../subDomains/counter/domain/stateManagement/DomainStateManagement';
-import { CounterUIState } from '../../counterUIState/CounterUIState';
 
 import styles from './LocalStoreCounter.module.css';
 
-interface CounterLocalState {
-    counter: domainCounterModel;
-    uiState: CounterUIState;
-}
-const initialState: CounterLocalState = {
-    counter: {
-        value: 0,
-    },
-    uiState: {
-        isLoading: false,
-        errorFetchMessage: '',
-        state : 'idle',
-    }
-};
-
-export const getLocalStateManagmentCallbacks = (localState: domainCounterModel, setLocalState: any) : IDomainStateManagement => {
-    return {
-        getStateCallback : () => { return { ...localState }},
-        setStateCallback: (state: domainCounterModel) => setLocalState(state),
-    }
-}
-
-//USES CUSTOM STORE
 export function LocalStoreCounter() {
-  const [localState, setLocalState] = useState<domainCounterModel>(initialState.counter); 
+  const [localState, setLocalState] = useState<domainCounterModel>(initialLocalState.counter); 
   const paramAmount = 2;
-  //const [localUiState, setLocalUiState] = useState<CounterUIState>(initialState.uiState); 
+  const { fetchAndIncrementByAmount } = useApplicationSimpleIncrement();
+  const { fetchAndIncrementByAmountAsync, error, isLoading, uiState } = useApplicationFetchAndIncrementByAmount();
 
-  const fetchAndIncrementByAmountAsync = async () => {
-    await applicationFetchAndIncrementByAmount(
-        getLocalStateManagmentCallbacks(localState, setLocalState),
-        { amount: paramAmount });
+  const onFetchAndIncrementByAmountAsync = async () => {
+    await fetchAndIncrementByAmountAsync(localState, setLocalState, paramAmount);
   };
 
   const onSimpleIncrement = () => {
-    applicationSimpleIncrement(getLocalStateManagmentCallbacks(localState, setLocalState))
+    fetchAndIncrementByAmount(localState, setLocalState);
   };
 
   return (
@@ -52,7 +27,7 @@ export function LocalStoreCounter() {
         <button
             className={styles.button}
             aria-label="CUCA"
-            onClick={fetchAndIncrementByAmountAsync}
+            onClick={onFetchAndIncrementByAmountAsync}
           >
             cuca
         </button>
@@ -66,15 +41,15 @@ export function LocalStoreCounter() {
             +
           </button>
       </div>
-        {/* <p>
-            {localUiState.isLoading ? 'Loading...' : 'Loaded'}
+        <p>
+            {isLoading ? 'Loading...' : 'Loaded'}
         </p>
         <p>
-            State: {localUiState.state}
+            State: {uiState}
         </p>
         <p>
-            {localUiState.errorFetchMessage && localUiState.errorFetchMessage}
-        </p> */}
+            {error && error}
+        </p>
     </div>
   );
 }
