@@ -2,6 +2,8 @@ export interface domainCounterModel {
     value: number;
 }
 
+//pure functions
+//moram da kopiram
 export const domainIncrement = (state: domainCounterModel) => {
     state.value += 1;
 }

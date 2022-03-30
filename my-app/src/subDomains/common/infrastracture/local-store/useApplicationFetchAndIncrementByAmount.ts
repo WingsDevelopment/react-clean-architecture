@@ -3,10 +3,10 @@ import { applicationFetchAndIncrementByAmount } from "../../../counter/applicati
 import { domainCounterModel } from "../../../counter/domain/entities/DomainCounterModel";
 import { getLocalStateManagmentCallbacks } from "./callbackProvider";
 
-export const useApplicationFetchAndIncrementByAmount = () => {
+export const useFetchAndIncrementByAmount = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
-    const [uiState, setUiState] = useState('idle');
+    const [uiState, setUiState] = useState<"idle" | "loading" | "failed">('idle');
 
     const fetchAndIncrementByAmountAsync = useCallback(async (localState: domainCounterModel, 
         setLocalState: any, amount: number) => {
@@ -19,10 +19,10 @@ export const useApplicationFetchAndIncrementByAmount = () => {
                 getLocalStateManagmentCallbacks(localState, setLocalState),
                 { amount });
 
-            setUiState('success');
+            setUiState('idle');
         } catch (error: any) {
             setError(error.message);
-            setUiState('error');
+            setUiState('failed');
         } finally {
             setIsLoading(false);
         }

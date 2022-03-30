@@ -4,36 +4,37 @@ import { getCustomStateManagmentCallbacks } from '../../../../subDomains/common/
 import { useCustomStore } from '../../../../subDomains/common/infrastracture/custom-store/store';
 import { applicationFetchAndIncrementByAmount } from '../../../../subDomains/counter/application/ApplicationFetchAndIncrementByAmount';
 import { applicationSimpleIncrement } from '../../../../subDomains/counter/application/ApplicationSimpleIncrement';
+import { domainCounterModel } from '../../../../subDomains/counter/domain/entities/DomainCounterModel';
+import { CounterUIState } from '../../counterUIState/CounterUIState';
 
-import styles from './CustomStoreCounter.module.css';
+import styles from './SimpleCustomStoreCounter.module.css';
+
+interface Props {
+  counter: domainCounterModel;
+  uiState: CounterUIState;
+  onFetchAndIncrementByAmountAsync: () => void;
+  onSimpleIncrement: () => void;
+}
 
 //USES CUSTOM STORE
-export function CustomStoreCounter() {
-  const {customGlobalState, customDispatch} = useCustomStore(); 
-  const paramAmount = 3;
-
-  const fetchAndIncrementByAmountAsync = async () => {
-    await applicationFetchAndIncrementByAmount(
-        getCustomStateManagmentCallbacks(customGlobalState, customDispatch),
-        { amount: paramAmount });
-  };
-
-  const onSimpleIncrement = () => {
-    applicationSimpleIncrement(getCustomStateManagmentCallbacks(customGlobalState, customDispatch));
-  };
-
+export const SimpleCustomStoreCounter : React.FC<Props> = ({
+  counter,
+  uiState,
+  onFetchAndIncrementByAmountAsync, 
+  onSimpleIncrement
+}) => {
   return (
     <div>
       <div className={styles.row}>
         <button
             className={styles.button}
             aria-label="CUCA"
-            onClick={fetchAndIncrementByAmountAsync}
+            onClick={onFetchAndIncrementByAmountAsync}
           >
             cuca
         </button>
         
-        <span className={styles.value}>{customGlobalState.counter.value}</span>
+        <span className={styles.value}>{counter.value}</span>
           <button
             className={styles.button}
             aria-label="Increment value"
@@ -42,6 +43,15 @@ export function CustomStoreCounter() {
             +
           </button>
       </div>
+      <p>
+        {uiState.isLoading ? 'Loading...' : 'Loaded'}
+      </p>
+      <p>
+        State: {uiState.state}
+      </p>
+      <p>
+        {uiState.errorFetchMessage && uiState.errorFetchMessage}
+      </p>
     </div>
   );
 }

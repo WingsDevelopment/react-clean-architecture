@@ -28,6 +28,7 @@ export const counterSlice = createSlice({
     //ovo nas interesuje
     setCounterState : (state, action) => {
       state.counter = action.payload;
+      //domain function
     },
   },
   //handle-uje UI state
@@ -58,6 +59,10 @@ export const selectCounterUiState = (state: RootState) : CounterUIState => {
 export const selectCounterStateCopy = (state: RootState) : domainCounterModel => { 
   const counter = { ...state.counterState.counter }; //ovde je odgovornost da se kopira state
   return counter;
+}
+
+export const selectCounterState = (state: RootState) : domainCounterModel => { 
+  return state.counterState.counter;
 }
 
 export default counterSlice.reducer;

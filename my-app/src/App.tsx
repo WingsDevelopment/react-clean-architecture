@@ -1,9 +1,8 @@
-import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Counter } from './userInterface/counter/components/reduxCounter/ReduxCounter';
-import { CustomStoreCounter } from './userInterface/counter/components/customStoreCounter/CustomStoreCounter';
-import { LocalStoreCounter } from './userInterface/counter/components/localStoreCounter/LocalStoreCounter';
+import { Counter } from './userInterface/counter/components/counter/reduxCounter/ReduxCounter';
+import { CustomStoreCounter } from './userInterface/counter/components/counter/customStoreCounter/CustomStoreCounter';
+import { LocalStoreCounter } from './userInterface/counter/components/counter/localStoreCounter/LocalStoreCounter';
 
 function App() {
   return (

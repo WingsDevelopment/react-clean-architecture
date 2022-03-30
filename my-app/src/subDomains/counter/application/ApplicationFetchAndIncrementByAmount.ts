@@ -18,7 +18,7 @@ export const applicationFetchAndIncrementByAmount = async (stateManagement: IDom
         const data = await fetchAmountAsync(); //fetch data from api
         domainIncrementByAmount(_state, data.amount + params.amount); // increment by params amount and api data amount
         
-        stateManagement.setStateCallback(_state);
+        stateManagement.setStateCallback(_state); // <- 1 reducer
         notifySuccess("Success");
     }
     catch (err: any) {
