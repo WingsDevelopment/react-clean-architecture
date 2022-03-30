@@ -1,8 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
 import { Counter } from './userInterface/counter/components/counter/reduxCounter/ReduxCounter';
-import { CustomStoreCounter } from './userInterface/counter/components/counter/customStoreCounter/CustomStoreCounter';
-import { LocalStoreCounter } from './userInterface/counter/components/counter/localStoreCounter/LocalStoreCounter';
 
 function App() {
   return (
@@ -13,11 +11,11 @@ function App() {
         <Counter />
         <hr />
         <p>Custom store:</p>
-        <CustomStoreCounter />
+        {/* <CustomStoreCounter /> */}
         
         <hr />
         <p>Local store:</p>
-        <LocalStoreCounter />
+        {/* <LocalStoreCounter /> */}
         
         <p>
         </p>

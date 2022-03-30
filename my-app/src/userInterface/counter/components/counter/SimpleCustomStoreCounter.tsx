@@ -1,8 +1,6 @@
 import { useState } from 'react';
 
-import { getCustomStateManagmentCallbacks } from '../../../../subDomains/common/infrastracture/custom-store/counterCustomStore';
-import { useCustomStore } from '../../../../subDomains/common/infrastracture/custom-store/store';
-import { applicationFetchAndIncrementByAmount } from '../../../../subDomains/counter/application/ApplicationFetchAndIncrementByAmount';
+import { useApplicationFetchAndIncrementByAmount } from '../../../../subDomains/counter/application/ApplicationFetchAndIncrementByAmount';
 import { applicationSimpleIncrement } from '../../../../subDomains/counter/application/ApplicationSimpleIncrement';
 import { domainCounterModel } from '../../../../subDomains/counter/domain/entities/DomainCounterModel';
 import { CounterUIState } from '../../counterUIState/CounterUIState';

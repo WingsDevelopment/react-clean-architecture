@@ -1,26 +1,27 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { AppThunk, RootState } from "../store/store";
-import { domainCounterModel } from "../../../../counter/domain/entities/DomainCounterModel";
-import { selectCounterStateCopy, setCounterState } from "./counterSlice";
+import { selectCounterStateCopy } from "./counterSlice";
 import { IDomainStateManagement } from "../../../../counter/domain/stateManagement/DomainStateManagement";
-import { applicationFetchAndIncrementByAmount } from "../../../../counter/application/ApplicationFetchAndIncrementByAmount";
+import { useApplicationFetchAndIncrementByAmount } from "../../../../counter/application/ApplicationFetchAndIncrementByAmount";
 import { applicationSimpleIncrement } from "../../../../counter/application/ApplicationSimpleIncrement";
+import { useCallback } from "react";
+import { useAppDispatch } from "../store/hooks";
 
+export const useFetchAndIncrementByAmountThunk = () => {
+  const dispatch = useAppDispatch();
 
-export const getCustomStateManagmentCallbacks = (dispatch: any, getState: any) : IDomainStateManagement => {
-  return {
-      getStateCallback: () => selectCounterStateCopy(getState() as RootState),
-      setStateCallback: (state: domainCounterModel) => dispatch(setCounterState(state))
-  }
+  const fetchAndIncrementByAmountThunkCB = useCallback( async (amount:number) => {
+    await dispatch(fetchAndIncrementByAmountThunk(amount));
+  }, [dispatch]);
+
+  return {fetchAndIncrementByAmountThunkCB};
 }
 
 export const fetchAndIncrementByAmountThunk = createAsyncThunk( 'counter/applicationFetchAndIncrementByAmount', 
-  async (amount: number, { dispatch, getState, rejectWithValue }) => {
+  async (amount: number, { rejectWithValue }) => {
+      const {applicationFetchAndIncrementByAmount} = useApplicationFetchAndIncrementByAmount();
       try {
-        await applicationFetchAndIncrementByAmount(
-          getCustomStateManagmentCallbacks(dispatch, getState),
-          {amount: amount}
-        );
+        await applicationFetchAndIncrementByAmount(amount);
       }
       catch (err) {
         return rejectWithValue("failed");
@@ -28,9 +29,6 @@ export const fetchAndIncrementByAmountThunk = createAsyncThunk( 'counter/applica
     }
   );
 
-export const simpleIncrementThunk = (): AppThunk => (
-    dispatch,
-    getState
-  ) => {
-    applicationSimpleIncrement(getCustomStateManagmentCallbacks(dispatch, getState));
+export const simpleIncrementThunk = (): AppThunk => () => {
+    applicationSimpleIncrement();
 };

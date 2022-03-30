@@ -1,68 +1,38 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store/store';
-import { domainCounterModel } from '../../../../counter/domain/entities/DomainCounterModel';
-import { fetchAndIncrementByAmountThunk } from './counterActions';
-import { CounterUIState, getUiStateOnFailed, getUiStateOnFetching, getUiStateOnSuccess } from '../../../../../userInterface/counter/counterUIState/CounterUIState';
+import { domainCounterModel, domainIncrementByAmount } from '../../../../counter/domain/entities/DomainCounterModel';
 
-interface CounterSliceState {
-    counter: domainCounterModel;
-    uiState: CounterUIState;
-}
+const initialState: domainCounterModel = { value: 0 };
 
-const initialState: CounterSliceState = {
-    counter: {
-        value: 0,
-    },
-    uiState: {
-        isLoading: false,
-        errorFetchMessage: '',
-        state : 'idle',
-    }
-};
+//actions
+// const incrementAction = (state:domainCounterModel) => domainIncrementByAmount(state, 1)
+// const decrementAction = (state:domainCounterModel) => domainIncrementByAmount(state, -1)
+// const incrementByAmountAction = (state:domainCounterModel, action: any) => domainIncrementByAmount(state, action.payload)
 
 export const counterSlice = createSlice({
   name: 'counter',
   initialState,
   //handle-uje biznis state
   reducers: {
-    //ovo nas interesuje
-    setCounterState : (state, action) => {
-      state.counter = action.payload;
-      //domain function
-    },
-  },
-  //handle-uje UI state
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchAndIncrementByAmountThunk.pending, (state) => {
-        state.uiState = getUiStateOnFetching();
-      })
-      .addCase(fetchAndIncrementByAmountThunk.fulfilled, (state) => {
-        state.uiState = getUiStateOnSuccess();
-      })
-      .addCase(fetchAndIncrementByAmountThunk.rejected, (state, action) => {
-        state.uiState = getUiStateOnFailed(action.payload as string);
-      })
+    increment: (state:domainCounterModel) => domainIncrementByAmount(state, 1),
+    decrement: (state:domainCounterModel) => domainIncrementByAmount(state, -1),
+    incrementByAmount: (state:domainCounterModel, action: PayloadAction<number>) => domainIncrementByAmount(state, action.payload)
   },
 });
 
-export const { setCounterState } = counterSlice.actions;
+export const { increment, decrement, incrementByAmount } = counterSlice.actions;
 
 export const selectCounterValue = (state: RootState) : number => { 
-  return state.counterState.counter.value;
-}
-
-export const selectCounterUiState = (state: RootState) : CounterUIState => { 
-  return state.counterState.uiState;
+  return state.counterState.value;
 }
 
 export const selectCounterStateCopy = (state: RootState) : domainCounterModel => { 
-  const counter = { ...state.counterState.counter }; //ovde je odgovornost da se kopira state
+  const counter = { ...state.counterState }; //ovde je odgovornost da se kopira state
   return counter;
 }
 
 export const selectCounterState = (state: RootState) : domainCounterModel => { 
-  return state.counterState.counter;
+  return state.counterState;
 }
 
 export default counterSlice.reducer;
