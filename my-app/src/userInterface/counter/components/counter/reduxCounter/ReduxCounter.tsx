@@ -1,9 +1,9 @@
 import { selectCounterState } from '../../../../../subDomains/common/infrastracture/redux/counterSlice/counterSlice';
-import { fetchAndIncrementByAmountThunk, simpleIncrementThunk, useFetchAndIncrementByAmountThunk } from '../../../../../subDomains/common/infrastracture/redux/counterSlice/counterActions';
 import { useAppSelector, useAppDispatch } from '../../../../../subDomains/common/infrastracture/redux/store/hooks';
 
 import { SimpleCustomStoreCounter } from '../SimpleCustomStoreCounter';
 import { selectUiApplicationState } from '../../../../../subDomains/common/infrastracture/redux/uiSlice/uiApplicationSlice';
+import { fetchAndIncrementByAmountThunk, simpleIncrementThunk } from '../../../../../subDomains/common/infrastracture/redux/counterSlice/counterActions';
 
 //USES CUSTOM REDUX TOOLKIT STORE
 export function Counter() {
@@ -11,10 +11,9 @@ export function Counter() {
   const counterUIState = useAppSelector(selectUiApplicationState);
   const dispatch = useAppDispatch();
   const paramAmount = 4;
-  const { fetchAndIncrementByAmountThunkCB } = useFetchAndIncrementByAmountThunk();
 
   const onFetchAndIncrementByAmount = async () => {
-    fetchAndIncrementByAmountThunkCB(paramAmount);
+    dispatch(fetchAndIncrementByAmountThunk(paramAmount));
   };
 
   const onSimpleIncrement = () => {

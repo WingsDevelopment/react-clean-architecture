@@ -1,15 +1,19 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ES5",
     "lib": [
       "dom",
       "dom.iterable",
-      "esnext"
+      "esnext",
+      "es6"
     ],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "types": ["reflect-metadata"],
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,

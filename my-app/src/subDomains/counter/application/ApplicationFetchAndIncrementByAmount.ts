@@ -1,28 +1,28 @@
-import { useCallback } from "react";
-import { useCounterStorage } from "../../common/infrastracture/redux/storeAdapters/CounterStorage";
-import { domainIncrementByAmount } from "../domain/entities/DomainCounterModel";
-import { IDomainApiRepository } from "../domain/repositoryInterfaces/IDomainApiRepository";
+import { IDomainCounterRepository } from "../domain/repositoryInterfaces/IDomainApiRepository";
 import { IDomainNotificationRepository } from "../domain/repositoryInterfaces/IDomainNotificationRepository";
-import { IDomainStateManagement } from "../domain/stateManagement/DomainStateManagement";
+import { ICounterStorage } from "../domain/stateManagement/CounterStorage";
 
-export const useApplicationFetchAndIncrementByAmount = () => {
-    const { incrementByAmount } = useCounterStorage();
-    const { fetchAmountAsync } = IDomainApiRepository;
-    const { notifyError, notifySuccess } = IDomainNotificationRepository;
+type Dependencies = {
+    counterStorage: ICounterStorage,
+    counterRepository: IDomainCounterRepository,
+    notificationService: IDomainNotificationRepository
+};
 
-    const applicationFetchAndIncrementByAmount = async (amount: number) => {
-        
-        try {
-            console.log('uslo');
-            const data = await fetchAmountAsync();
-            incrementByAmount(data.amount + amount); 
-            notifySuccess("Success");
-            console.log('Success');
-        }
-        catch (err: any) {
-            notifyError(err);
-        }
+export const applicationFetchAndIncrementByAmount = async (
+    amount: number,
+    dependencies: Dependencies
+) => {
+    const { counterStorage, counterRepository, notificationService } = dependencies;
+
+    try {
+        console.log('uslo');
+        const data = await counterRepository.fetchAmountAsync();
+        counterStorage.incrementByAmount(data.amount + amount); 
+        notificationService.notifySuccess("Success");
+        console.log('Success');
+    }
+    catch (err: any) {
+        notificationService.notifyError(err);
     }
     
-    return {applicationFetchAndIncrementByAmount};
 }

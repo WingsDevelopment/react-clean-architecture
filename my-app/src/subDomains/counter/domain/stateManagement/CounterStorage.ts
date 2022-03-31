@@ -1,6 +1,6 @@
 import { domainCounterModel } from "../entities/DomainCounterModel";
 
-export interface CounterStorage {
+export interface ICounterStorage {
     getValue(): domainCounterModel; // Can also be `CounterValue`, depends on your preferences.
     
     increment(): void;

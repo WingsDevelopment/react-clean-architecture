@@ -1,10 +1,14 @@
-import { useCounterStorage } from "../../common/infrastracture/redux/storeAdapters/CounterStorage";
-import { domainIncrement } from "../domain/entities/DomainCounterModel";
-import { IDomainStateManagement } from "../domain/stateManagement/DomainStateManagement";
+import { ICounterStorage } from "../domain/stateManagement/CounterStorage";
+
+type Dependencies = {
+    counterStorage: ICounterStorage,
+}
 
 //simple usecase
-export const applicationSimpleIncrement = ()  => {
-    const { increment } = useCounterStorage();
+export const applicationSimpleIncrement = (
+    dependencies: Dependencies
+)  => {
+    const { counterStorage } = dependencies;
 
-    increment();
+    counterStorage.increment();
 }

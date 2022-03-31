@@ -1,21 +1,18 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../store/store';
-import { domainCounterModel, domainIncrementByAmount } from '../../../../counter/domain/entities/DomainCounterModel';
+import { RootState, store } from '../store/store';
+import { domainCounterModel, domainDecrement, domainIncrement, domainIncrementByAmount } from '../../../../counter/domain/entities/DomainCounterModel';
+import { ICounterStorage } from '../../../../counter/domain/stateManagement/CounterStorage';
+import { injectable } from 'inversify';
 
 const initialState: domainCounterModel = { value: 0 };
-
-//actions
-// const incrementAction = (state:domainCounterModel) => domainIncrementByAmount(state, 1)
-// const decrementAction = (state:domainCounterModel) => domainIncrementByAmount(state, -1)
-// const incrementByAmountAction = (state:domainCounterModel, action: any) => domainIncrementByAmount(state, action.payload)
 
 export const counterSlice = createSlice({
   name: 'counter',
   initialState,
   //handle-uje biznis state
   reducers: {
-    increment: (state:domainCounterModel) => domainIncrementByAmount(state, 1),
-    decrement: (state:domainCounterModel) => domainIncrementByAmount(state, -1),
+    increment: (state:domainCounterModel) => domainIncrement(state),
+    decrement: (state:domainCounterModel) => domainDecrement(state),
     incrementByAmount: (state:domainCounterModel, action: PayloadAction<number>) => domainIncrementByAmount(state, action.payload)
   },
 });
@@ -33,6 +30,14 @@ export const selectCounterStateCopy = (state: RootState) : domainCounterModel =>
 
 export const selectCounterState = (state: RootState) : domainCounterModel => { 
   return state.counterState;
+}
+
+@injectable()
+export class CounterStorage implements ICounterStorage {
+    getValue = () => store.getState().counterState;
+    increment = () => store.dispatch(increment());
+    decrement = () => store.dispatch(decrement());
+    incrementByAmount = (amount: number) => store.dispatch(incrementByAmount(amount));
 }
 
 export default counterSlice.reducer;

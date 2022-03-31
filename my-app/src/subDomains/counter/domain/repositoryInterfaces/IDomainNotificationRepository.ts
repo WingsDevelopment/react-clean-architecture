@@ -1,6 +1,5 @@
-import { NotificationRepository } from "../../../common/infrastracture/notification/NotificationRepository";
 
-export const IDomainNotificationRepository = {
-    notifySuccess: NotificationRepository.notifySuccess,
-    notifyError: NotificationRepository.notifyError
+export interface IDomainNotificationRepository {
+    notifySuccess: (message: string) => void;
+    notifyError: (message: string) => void;
 }

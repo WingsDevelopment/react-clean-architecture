@@ -1,7 +1,3 @@
-import { useState } from 'react';
-
-import { useApplicationFetchAndIncrementByAmount } from '../../../../subDomains/counter/application/ApplicationFetchAndIncrementByAmount';
-import { applicationSimpleIncrement } from '../../../../subDomains/counter/application/ApplicationSimpleIncrement';
 import { domainCounterModel } from '../../../../subDomains/counter/domain/entities/DomainCounterModel';
 import { CounterUIState } from '../../counterUIState/CounterUIState';
 
