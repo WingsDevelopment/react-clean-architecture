@@ -12,6 +12,8 @@ export const applicationFetchAndIncrementByAmount = async (
     amount: number,
     dependencies: Dependencies
 ) => {
+    debugger;
+
     const { counterStorage, counterRepository, notificationService } = dependencies;
 
     try {

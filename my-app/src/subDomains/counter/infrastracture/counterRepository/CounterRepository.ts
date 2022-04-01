@@ -1,5 +1,4 @@
 import { IDomainCounterRepository } from "../../domain/repositoryInterfaces/IDomainApiRepository";
-import { injectable } from 'inversify';
 
 // A mock function to mimic making an async request for data
 export function fetchAmountAsync(amount = 3) {
@@ -8,7 +7,6 @@ export function fetchAmountAsync(amount = 3) {
   );
 }
 
-@injectable()
 export class CounterRepository implements IDomainCounterRepository {
-  fetchAmountAsync = fetchAmountAsync;
+  fetchAmountAsync = async () => await fetchAmountAsync();
 }

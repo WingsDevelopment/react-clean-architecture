@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, store } from '../store/store';
 import { domainCounterModel, domainDecrement, domainIncrement, domainIncrementByAmount } from '../../../../counter/domain/entities/DomainCounterModel';
 import { ICounterStorage } from '../../../../counter/domain/stateManagement/CounterStorage';
-import { injectable } from 'inversify';
 
 const initialState: domainCounterModel = { value: 0 };
 
@@ -32,7 +31,6 @@ export const selectCounterState = (state: RootState) : domainCounterModel => {
   return state.counterState;
 }
 
-@injectable()
 export class CounterStorage implements ICounterStorage {
     getValue = () => store.getState().counterState;
     increment = () => store.dispatch(increment());

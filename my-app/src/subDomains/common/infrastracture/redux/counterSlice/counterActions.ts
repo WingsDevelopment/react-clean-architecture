@@ -1,22 +1,23 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { AppThunk } from "../store/store";
-import { container, MYTYPES } from "../../../../..";
 import { CounterService } from "../../../../counter/application/CounterService";
+import { container } from "../../../../..";
 
 
 export const fetchAndIncrementByAmountThunk = createAsyncThunk( 'counter/applicationFetchAndIncrementByAmount', 
   async (amount: number, { rejectWithValue }) => {
       try {
-        const counterService = container.get<CounterService>(MYTYPES.CounterService);
-        await counterService.applicationFetchAndIncrementByAmount(amount);
+        const service = container.get<CounterService>('CounterService');
+        await service.applicationFetchAndIncrementByAmount(amount);
       }
       catch (err) {
+        console.log(err);
         return rejectWithValue("failed");
       }
     }
   );
 
 export const simpleIncrementThunk = (): AppThunk => () => {
-  const counterService = container.resolve(CounterService);
-  counterService.applicationSimpleIncrement();
+  const service = container.get<CounterService>('CounterService');
+  service.applicationSimpleIncrement();
 };
